@@ -16,8 +16,8 @@ import java.util.Map;
 @Service
 public class Cookies {
 
-
-    private String environment = "dev";
+    @Value("${app.environment}")
+    private String environment;
 
     private boolean isProduction() {
         return "production".equalsIgnoreCase(environment);
