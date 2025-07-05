@@ -161,7 +161,7 @@ public class PublicController {
 
         try {
             String email = jwtUtil.extractUsername(jwt);
-            User user = userRepository.findByEmail(email); // Assuming userRepository is userRepo
+            User user = userService.findByUsername(email); // Assuming userRepository is userRepo
             if (user == null) {
                 return ResponseEntity.status(401).body(null);
             }
@@ -216,7 +216,7 @@ public class PublicController {
             cookieService.setCookies(dbUser,jwtToken, response);
 
 
-            return ResponseEntity.ok(new GoogleUserResponse(userDetails.getUsername(), dbUser.getAvatar()));
+            return ResponseEntity.ok(new UserResponse(userDetails.getUsername(), dbUser.getAvatar()));
         } catch (Exception e) {
             return ResponseEntity.status(403).body("Invalid username or password");
         }
