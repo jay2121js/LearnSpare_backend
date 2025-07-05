@@ -152,7 +152,7 @@ public class GoogleAuthController {
             return null;
         }
     }
-    @PostMapping("/login/callback")
+    @GetMapping("/login/callback")
     public ResponseEntity<GoogleUserResponse> googleLoginCallback(
             @RequestParam("code") String code,
             HttpServletResponse response
