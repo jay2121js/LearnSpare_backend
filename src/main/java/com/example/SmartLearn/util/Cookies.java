@@ -55,11 +55,12 @@ public class Cookies {
         StringBuilder cookie = new StringBuilder();
         cookie.append(name).append("=").append(value)
                 .append("; Path=/")
-                .append("; Max-Age=").append(maxAge)
-                .append("; SameSite=Lax");
-
+                .append("; Max-Age=").append(maxAge);
         if (secure) {
+            cookie.append("; SameSite=None");
             cookie.append("; Secure");
+        } else {
+            cookie.append("; SameSite=Lax");
         }
         if (httpOnly) {
             cookie.append("; HttpOnly");
