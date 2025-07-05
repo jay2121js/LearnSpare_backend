@@ -176,13 +176,16 @@ public class GoogleAuthController {
         }
 
         String jwt = jwtUtil.generateToken(email);
-        cookies.setCookies(user,jwt, response);
+        String s = cookies.generateCookies(user, jwt, response);
 
         if (picture != null && !picture.isBlank() && (user.getAvatar() == null || user.getAvatar().isBlank())) {
             avatarUploadService.uploadAvatarAsync(user.getId(), picture);
         }
 
-        return ResponseEntity.ok(new GoogleUserResponse(user.getUsername(), user.getAvatar()));
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, s)
+                .body(new GoogleUserResponse(user.getUsername(), user.getAvatar()));
+
     }
 }
 

@@ -51,20 +51,31 @@ public class Cookies {
         }
     }
 
+
+    public String generateCookies(User user, String jwt, HttpServletResponse response) {
+        int maxAge = 24 * 60 * 60;
+        boolean secure = isProduction();
+
+        // JWT cookie (HttpOnly)
+        String jwtCookie = buildCookie("jwt", jwt, maxAge, secure, true);
+        return jwtCookie;
+    }
+
     private String buildCookie(String name, String value, int maxAge, boolean secure, boolean httpOnly) {
         StringBuilder cookie = new StringBuilder();
         cookie.append(name).append("=").append(value)
                 .append("; Path=/")
-                .append("; Max-Age=").append(maxAge);
+                .append("; Max-Age=").append(maxAge)
+                .append("; SameSite=None");
+
         if (secure) {
-            cookie.append("; SameSite=None");
             cookie.append("; Secure");
-        } else {
-            cookie.append("; SameSite=Lax");
         }
         if (httpOnly) {
             cookie.append("; HttpOnly");
         }
         return cookie.toString();
     }
+
+
 }
