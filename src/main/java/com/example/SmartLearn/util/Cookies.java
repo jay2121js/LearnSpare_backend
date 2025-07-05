@@ -56,7 +56,7 @@ public class Cookies {
         cookie.append(name).append("=").append(value)
                 .append("; Path=/")
                 .append("; Max-Age=").append(maxAge)
-                .append("; SameSite=None");
+                .append("; SameSite=Lax");
 
         if (secure) {
             cookie.append("; Secure");
